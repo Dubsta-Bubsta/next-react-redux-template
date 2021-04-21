@@ -1,0 +1,21 @@
+User-agent: Yandex
+Disallow: /security
+Disallow: /settings
+Disallow: /me
+Allow: /static/*.css
+Allow: /static/*.js
+Host: https://vsrap.com
+
+User-agent: *
+Disallow: /security
+Disallow: /settings
+Disallow: /me
+Allow: /static/*.css
+Allow: /static/*.js
+Allow: /.well-known/*.json
+
+User-Agent: YandexDirect
+Disallow:
+
+User-agent: Twitterbot
+Disallow:
