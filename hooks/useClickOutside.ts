@@ -1,4 +1,4 @@
-import React, { useEffect, MouseEvent } from 'react'
+import React, { useEffect } from 'react'
 import { VoidFuncType } from 'types/common'
 
 export const useClickOutside = (

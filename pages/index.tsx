@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { wrapper } from '../redux/store'
 import { useAppDispatch, useAppSelector } from 'types/redux'
 import { useRouter } from 'next/router'
-import { logout, login } from 'redux/me/meSlice'
+import { logout, login } from 'redux/slices/me/meSlice'
 
 interface IProps {
 	a: any
@@ -45,6 +45,7 @@ const MainPage = ({ ...props }: IProps) => {
 }
 
 export const getServerSideProps = wrapper.getServerSideProps(async ({ store, req }) => {
+	const a = store.getState()
 	return {
 		props: {},
 	}

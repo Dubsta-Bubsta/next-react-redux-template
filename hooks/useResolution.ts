@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from 'react'
-import { useSelector } from 'react-redux'
-import { UserAgent } from 'next-useragent'
-import { RootState } from 'types/redux'
+import { useAppSelector } from 'types/redux'
 
 function useResolution(resoultion = 480) {
-	const userAgent = useSelector<RootState, UserAgent>(state => state.app.userAgent)
+	const userAgent = useAppSelector(state => state.app.userAgent)
 
 	const [isMobile, setIsMobile] = useState(false)
 

@@ -5,15 +5,15 @@ import 'nprogress/nprogress.css'
 
 import React from 'react'
 import { wrapper } from '../redux/store'
-import { Router, withRouter } from 'next/router'
+import { Router } from 'next/router'
 import NProgress from 'nprogress'
 import type { AppContext, AppProps } from 'next/app'
 import { createGlobalStyle, ThemeProvider } from 'styled-components'
 import { DefaultTheme } from 'styled-components'
 import { ToastContainer } from 'react-toastify'
 import { useUserAgent } from 'next-useragent'
-import { setUserAgent } from 'redux/app/appSlice'
-import { authUser } from 'redux/me/meSlice'
+import { setUserAgent } from 'redux/slices/app/appSlice'
+import { authUser } from 'redux/slices/me/meSlice'
 
 NProgress.configure({ showSpinner: false })
 Router.events.on('routeChangeStart', () => NProgress.start())
@@ -74,4 +74,4 @@ MyApp.getInitialProps = async ({ Component, ctx }: AppContext) => {
 	}
 }
 
-export default wrapper.withRedux(withRouter(MyApp))
+export default wrapper.withRedux(MyApp)

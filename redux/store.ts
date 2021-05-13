@@ -1,39 +1,21 @@
-import { HYDRATE, createWrapper } from 'next-redux-wrapper'
-import { configureStore, combineReducers, AnyAction } from '@reduxjs/toolkit'
-import logger from 'redux-logger'
-import thunk from 'redux-thunk'
+import { configureStore, getDefaultMiddleware, EnhancedStore } from '@reduxjs/toolkit'
+import { createWrapper, MakeStore } from 'next-redux-wrapper'
+import slices, { IState } from './slices'
 
-import appSlice from './app/appSlice'
-import meSlice from './me/meSlice'
+const IS_DEV = process.env.NODE_ENV === 'development'
 
-const combinedReducer = combineReducers({
-	app: appSlice,
-	me: meSlice,
+export const store = configureStore({
+	reducer: slices,
+	middleware: [...getDefaultMiddleware()],
+	devTools: IS_DEV,
 })
 
-const reducer = (state, action: AnyAction) => {
-	if (action.type === HYDRATE) {
-		const nextState = {
-			...state,
-			...action.payload,
-		}
+const setupStore = (context): EnhancedStore => store
 
-		return nextState
-	} else {
-		return combinedReducer(state, action)
-	}
-}
+const makeStore: MakeStore<IState> = context => setupStore(context)
 
-const initStore = () => {
-	return configureStore({
-		reducer,
-		middleware: getDefaultMiddleware => getDefaultMiddleware().concat(thunk),
-		// .concat(logger)
-		devTools: process.env.NODE_ENV !== 'production',
-	})
-}
+export const wrapper = createWrapper(makeStore, {
+	debug: IS_DEV,
+})
 
-export type RootReducerType = typeof combinedReducer
-export const wrapper = createWrapper(initStore)
-
-export const store = initStore()
+export default wrapper
